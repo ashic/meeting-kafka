@@ -11,7 +11,7 @@ namespace WebDash.Controllers
     {
         public ActionResult Index()
         {
-            var entries = Histograms.Instance.GetValues();
+            var entries = Histograms.Instance.GetValues().OrderByDescending(x => x.Value).ToList();
             return View(entries);
         }
     }

@@ -15,7 +15,11 @@ namespace MessageGenerator
             var random = new Random(DateTime.Now.Millisecond);
 
             //TODO: Setup consumer...need topic (see below)
+            using (var client = new KafkaClient("docker:2181"))
+            using (var topic = client.Topic("demo1"))
+
             {
+
                 while (true)
                 {
                     var batch = Enumerable.Range(1, 10).Select(x =>
@@ -26,7 +30,7 @@ namespace MessageGenerator
                         }).ToArray();
 
                     //TODO: Uncomment
-                    //topic.Send(batch);
+                    topic.Send(batch);
                     Console.WriteLine("Sending batch....");
                    Thread.Sleep(2000);
                 }
